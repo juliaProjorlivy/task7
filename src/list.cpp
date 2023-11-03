@@ -3,11 +3,13 @@
 #include "list_realloc.h"
 #include <stdio.h>
 
+const int decr_mul = 4;
+
 int *append(elem_t value, struct list *listt) // returns index of value in data
 {
     if(listt->free == -1)
     {
-        if(list_realloc(&listt))
+        if(list_realloc(&listt, INCREASE))
         {
             VERROR_MEM;
             return NULL;
@@ -44,20 +46,20 @@ int *append(elem_t value, struct list *listt) // returns index of value in data
 
 }
 
-int *insert(elem_t value ,int index_before, struct list *listt)
+int *insert(elem_t value, int index_before, struct list *listt) // index_before in data not sequentially 
 {
+    if(index_before == listt->tail)
+    {
+        return append(value, listt);
+    }
+
     if(listt->free == -1)
     {
-        if(list_realloc(&listt))
+        if(list_realloc(&listt, INCREASE))
         {
             VERROR_MEM;
             return NULL;
         }
-    }
-
-    if(index_before == listt->tail)
-    {
-        return append(value, listt);
     }
 
     if(index_before == 0)
@@ -93,6 +95,14 @@ int *insert(elem_t value ,int index_before, struct list *listt)
 
 elem_t *popend(struct list *listt)
 {
+    if(listt->capacity >= listt->n_elem * decr_mul)
+    {
+        if(list_realloc(&listt, DECREASE))
+        {
+            VERROR_MEM;
+            return NULL;
+        }
+    }
     listt->n_elem--;
     listt->next[listt->tail] = listt->free;
     listt->free = listt->tail;
@@ -101,14 +111,30 @@ elem_t *popend(struct list *listt)
     return &(listt->data[listt->free]);
 }
 
-elem_t *pop(int index_before, struct list *listt)
+elem_t *pop(int index, struct list *listt) // del the element that contains in data in index cell
 {
-    if(index_before == listt->prev[listt->tail])
+    if(index == listt->tail)
     {
         return popend(listt);
     }
 
+    if(listt->capacity >= listt->n_elem * decr_mul)
+    {
+        if(list_realloc(&listt, DECREASE))
+        {
+            VERROR_MEM;
+            return NULL;
+        }
+    }
+
     listt->n_elem--;
-    
+    listt->next[listt->prev[index]] = listt->next[index];
+    listt->prev[listt->next[index]] = listt->prev[index];
+    listt->prev[index] = -1;
+    int new_free = listt->next[index];
+    listt->next[index] = listt->free;
+    listt->free = new_free;
+
+    return &(listt->data[index]);
 }
 

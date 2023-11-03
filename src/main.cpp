@@ -6,15 +6,20 @@
 
 int main()
 {
-    size_t capacity = 2;
+    size_t capacity = 20;
     struct list listt = {};
     list_ctor(&listt, capacity);
-    append(22, &listt);
-    append(33, &listt);
-    insert(111, 2, &listt);
-    insert(222, 0, &listt);
-    elem_t *x = popend(&listt);
-    printf("x = %d\n", *x);
+    for(int i = 1; i < 21; i++)
+    {
+        append(10 * i, &listt);
+    }
+    print_data(&listt);
+    for(int i = 0; i < 17; i++)
+    {
+        printf("poped_%d = %d\n", i, *popend(&listt));
+    }
+    // elem_t *x = popend(&listt);
+    // printf("x = %d\n", *x);
     print_data(&listt);
     print_next(&listt);
     print_prev(&listt);

@@ -12,7 +12,7 @@ int list_ctor(struct list *listt, size_t capacity)
     for(size_t i = 1; i <= capacity; i++)
     {
         listt->next[i] = (int)i+1;
-        listt->prev[i] = (int)i;
+        listt->prev[i] = -1;
     }
     listt->next[capacity] = -1;
     listt->data[0] = poison;
