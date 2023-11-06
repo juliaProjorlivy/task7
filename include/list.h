@@ -2,6 +2,9 @@
 #define LIST_H
 
 #include <stdio.h>
+#include <limits.h>
+
+static const int poison = INT_MAX;
 typedef int elem_t;
 
 struct list

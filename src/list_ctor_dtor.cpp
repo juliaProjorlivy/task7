@@ -1,8 +1,5 @@
 #include "list_ctor_dtor.h"
 #include <stdlib.h>
-#include <limits.h>
-
-const int poison = INT_MAX;
 
 int list_ctor(struct list *listt, size_t capacity)
 {
@@ -12,13 +9,14 @@ int list_ctor(struct list *listt, size_t capacity)
     for(size_t i = 1; i <= capacity; i++)
     {
         listt->next[i] = (int)i+1;
-        listt->prev[i] = -1;
+        listt->prev[i] = -1; ////
     }
-    listt->next[capacity] = -1;
+    listt->next[capacity] = 0;
     listt->data[0] = poison;
     listt->head = 0;
     listt->tail = 0;
     listt->free = 1;
+    listt->prev[listt->free] = 0;
     listt->capacity = capacity;
     listt->n_elem = 0;
 

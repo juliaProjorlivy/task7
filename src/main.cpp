@@ -2,31 +2,41 @@
 #include "list_func.h"
 #include "list_ctor_dtor.h"
 #include "list_dump.h"
+#include "verror.h"
 #include <stdio.h>
 
-int main()
+int main(int argc, char *argv[])
 {
+    if(argc < 2)
+    {
+        VERROR("no needed file");
+        return 1;
+    }
+    freopen(argv[1], "w", stdout);
     size_t capacity = 20;
     struct list listt = {};
     list_ctor(&listt, capacity);
-    for(int i = 1; i < 21; i++)
-    {
-        append(10 * i, &listt);
-    }
-    print_data(&listt);
-    for(int i = 0; i < 17; i++)
-    {
-        printf("poped_%d = %d\n", i, *popend(&listt));
-    }
-    // elem_t *x = popend(&listt);
-    // printf("x = %d\n", *x);
-    print_data(&listt);
-    print_next(&listt);
-    print_prev(&listt);
-    for(size_t i = 0; i  <= listt.capacity; i++)
-    {
-        printf("%zu) %d\n", i, listt.data[i]);
-    }
+    int ret_val = 0;
+    int ind_2 = 0;
+    
+    // for(int i = 1; i < 3; i++)
+    // {
+    //     ind_2 = *append(10 * i, &listt, &ret_val);
+    // }
+    // int ind_3 = *append(777, &listt, &ret_val);
+    // insert(444, ind_3, &listt, &ret_val);
+    // for(int i = 1; i < 3; i++)
+    // {
+    //     append(i, &listt, &ret_val);
+    // }
+    // popend(&listt, &ret_val);
+    // pop(ind_2, &listt, &ret_val);
+    // pop(1, &listt, &ret_val);
+    // insert(666, 3, &listt, &ret_val);
+
+    printf("digraph{\n");
+    print_graph_v3(&listt);
+    printf("}\n");
     list_dtor(&listt);
     return 0;
 }
