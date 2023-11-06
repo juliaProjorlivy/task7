@@ -12,12 +12,19 @@ int main(int argc, char *argv[])
         VERROR("no needed file");
         return 1;
     }
-    freopen(argv[1], "w", stdout);
+
+    if(freopen(argv[1], "w", stdout) == NULL)
+    {
+        VERROR("troubles");
+        return 1;
+    }
+
     size_t capacity = 20;
     struct list listt = {};
-    list_ctor(&listt, capacity);
     int ret_val = 0;
     int ind_2 = 0;
+
+    list_ctor(&listt, capacity);
     
     for(int i = 1; i < 3; i++)
     {
@@ -37,7 +44,9 @@ int main(int argc, char *argv[])
     printf("digraph{\n");
     print_graph_v3(&listt);
     printf("}\n");
+
     list_dtor(&listt);
+
     return 0;
 }
 

@@ -31,3 +31,4 @@ clean:
 
 mem:
 	valgrind --leak-check=full --leak-resolution=med ./$(EXECUTABLE)
+	
