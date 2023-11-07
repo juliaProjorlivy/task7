@@ -5,19 +5,9 @@
 #include "verror.h"
 #include <stdio.h>
 
-int main(int argc, char *argv[])
+int main()
 {
-    if(argc < 2)
-    {
-        VERROR("no needed file");
-        return 1;
-    }
-
-    if(freopen(argv[1], "w", stdout) == NULL)
-    {
-        VERROR("troubles");
-        return 1;
-    }
+    freopen("graph/graph.dot", "w", stdout);
 
     size_t capacity = 20;
     struct list listt = {};
@@ -32,18 +22,21 @@ int main(int argc, char *argv[])
     }
     int ind_3 = *append(777, &listt, &ret_val);
     insert(444, ind_3, &listt, &ret_val);
+    print_graph_v4(&listt, "first_first");
     for(int i = 1; i < 3; i++)
     {
         append(i, &listt, &ret_val);
     }
+
     popend(&listt, &ret_val);
+    print_graph_v4(&listt, "middle_one_3");
     pop(ind_2, &listt, &ret_val);
+    print_graph_v4(&listt, "middle_4");
     pop(1, &listt, &ret_val);
     insert(666, 3, &listt, &ret_val);
+    pop(3, &listt, &ret_val);
 
-    printf("digraph{\n");
-    print_graph_v3(&listt);
-    printf("}\n");
+    print_graph_v4(&listt, "last");
 
     list_dtor(&listt);
 

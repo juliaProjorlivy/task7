@@ -13,13 +13,19 @@ CXX_FLAGS = -I include -D _DEBUG -ggdb3 -std=c++17 -O0 -Wall -Wextra -Weffc++ -W
 
 SRCS = src/list_ctor_dtor.cpp src/list.cpp src/main.cpp src/list_dump.cpp src/verror.cpp src/list_realloc.cpp
 OBJ = $(patsubst %.cpp, build/%.o, $(subst src/, , $(SRCS)))
+PICS = $(wildcard graph/*.png) graph/*.html
 EXECUTABLE = list
 VALGRIND = valgrind --leak-check=full --leak-resolution=med ./$(EXECUTABLE)
 
 all: $(OBJ)
 	@echo "CXX $(EXECUTABLE)"
 	@$(CXX) $(CXX_FLAGS) -lasan $(OBJ) -o $(EXECUTABLE)
-
+pics: $(OBJ)
+	rm -f $(PICS) 
+	dot -Tpng -O graph/graph.dot
+	touch index.html
+	graph/put_graph.sh
+	
 build/%.o: src/%.cpp
 	mkdir -p ./build
 	@$(CXX) $(CXX_FLAGS) -c -o $@ $<
@@ -28,6 +34,7 @@ build/%.o: src/%.cpp
 
 clean:
 	@rm -f build/*.o
+	@rm -f $(EXECUTABLE)
 
 mem:
 	valgrind --leak-check=full --leak-resolution=med ./$(EXECUTABLE)
