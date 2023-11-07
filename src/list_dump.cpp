@@ -198,7 +198,7 @@ void print_graph_v4(struct list *listt, const char *graph_name)
     int even_i = 0;
     while(even_i < (int)(listt->capacity))
     {
-        printf("\tnode_%d->node_%d[weight=10, color=\"white\"];\n", even_i, even_i + 1);
+        printf("\tnode_%d->node_%d[weight=1000, color=\"white\"];\n", even_i, even_i + 1);
         even_i++;
     }
 
@@ -210,6 +210,11 @@ void print_graph_v4(struct list *listt, const char *graph_name)
     printf("\tHEAD->node_%d;\n", listt->head);
     printf("\tTAIL->node_%d;\n", listt->tail);
     printf("\tFREE->node_%d;\n", listt->free);
+
+    printf("\tCAPACITY[shape=record, label=\"capacity: %zu\", color=\"black\", frontsize=14, shape=\"rectangle\", style=\"filled\", fillcolor=\"lightgrey\"];\n", listt->capacity);
+    printf("\tN_ELEM[shape=record, label=\"n_elem: %zu\", color=\"black\", frontsize=14, shape=\"rectangle\", style=\"filled\", fillcolor=\"lightgrey\"];\n", listt->n_elem);
+    printf("\tCAPACITY->node_0[weight=8, color=\"white\"];\n");
+    printf("\tN_ELEM->node_0[weight=8, color=\"white\"];\n");
 
     printf("}\n");
 

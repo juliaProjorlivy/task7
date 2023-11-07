@@ -36,6 +36,7 @@ int list_realloc(struct list **listt, realloc_state state)
         
         for(size_t i = (size_t)((*listt)->tail) + 1; i <= (*listt)->capacity; i++)
         {
+            (*listt)->data[i] = 0;
             (*listt)->next[i] = (int)i + 1;
             (*listt)->prev[i] = -1;
         }

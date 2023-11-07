@@ -9,7 +9,7 @@ int main()
 {
     freopen("graph/graph.dot", "w", stdout);
 
-    size_t capacity = 20;
+    size_t capacity = 3;
     struct list listt = {};
     int ret_val = 0;
     int ind_2 = 0;
@@ -37,6 +37,8 @@ int main()
     pop(3, &listt, &ret_val);
 
     print_graph_v4(&listt, "last");
+    append(211, &listt, &ret_val);
+    print_graph_v4(&listt, "the_last");
 
     list_dtor(&listt);
 

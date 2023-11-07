@@ -23,7 +23,7 @@ all: $(OBJ)
 pics: $(OBJ)
 	rm -f $(PICS) 
 	dot -Tpng -O graph/graph.dot
-	touch index.html
+	touch graph/index.html
 	graph/put_graph.sh
 	
 build/%.o: src/%.cpp
