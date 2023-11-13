@@ -22,23 +22,23 @@ int main()
     }
     int ind_3 = *append(777, &listt, &ret_val);
     insert(444, ind_3, &listt, &ret_val);
-    print_graph_v4(&listt, "first_first");
+    LIST_DUMP(&listt, "first_first");
     for(int i = 1; i < 3; i++)
     {
         append(i, &listt, &ret_val);
     }
 
     popend(&listt, &ret_val);
-    print_graph_v4(&listt, "middle_one_3");
+    LIST_DUMP(&listt, "middle_one_3");
     pop(ind_2, &listt, &ret_val);
-    print_graph_v4(&listt, "middle_4");
+    LIST_DUMP(&listt, "middle_4");
     pop(1, &listt, &ret_val);
     insert(666, 3, &listt, &ret_val);
     pop(3, &listt, &ret_val);
 
-    print_graph_v4(&listt, "last");
+    LIST_DUMP(&listt, "last");
     append(211, &listt, &ret_val);
-    print_graph_v4(&listt, "the_last");
+    LIST_DUMP(&listt, "the_last");
 
     list_dtor(&listt);
 

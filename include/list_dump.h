@@ -3,18 +3,12 @@
 
 #include "list.h"
 
-void print_next(struct list *listt);
+void print_graph(struct list *listt, const char *graph_name = "GRAPH");
 
-void print_data(struct list *listt);
+void print_info(const char *filename, int n_line, const char *fucnname);
 
-void print_prev(struct list *listt);
-
-void print_graph(struct list *listt);
-
-void print_graph_v2(struct list *listt);
-
-void print_graph_v3(struct list *listt, const char *graph_name);
-
-void print_graph_v4(struct list *listt, const char *graph_name = "GRAPH");
+#define LIST_DUMP(listt, graph_name)    \
+        print_graph(listt, graph_name); \
+        print_info(__FILE__, __LINE__, __func__)
 
 #endif

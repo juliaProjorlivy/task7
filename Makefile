@@ -14,10 +14,12 @@ CXX_FLAGS = -I include -D _DEBUG -ggdb3 -std=c++17 -O0 -Wall -Wextra -Weffc++ -W
 SRCS = src/list_ctor_dtor.cpp src/list.cpp src/main.cpp src/list_dump.cpp src/verror.cpp src/list_realloc.cpp
 OBJ = $(patsubst %.cpp, build/%.o, $(subst src/, , $(SRCS)))
 PICS = $(wildcard graph/*.png) graph/*.html
+INFO_FILE = graph_info.txt
 EXECUTABLE = list
 VALGRIND = valgrind --leak-check=full --leak-resolution=med ./$(EXECUTABLE)
 
 all: $(OBJ)
+	rm -f $(INFO_FILE)
 	@echo "CXX $(EXECUTABLE)"
 	@$(CXX) $(CXX_FLAGS) -lasan $(OBJ) -o $(EXECUTABLE)
 pics: $(OBJ)
